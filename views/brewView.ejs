@@ -194,7 +194,7 @@
     </div>
     <p><%locals.reviews && 'User Reviews:' %></p>
     <div style=" align-items: center; justify-content: center;">
-      <% if (locals.rating !=null){ %>
+      <% if (locals.reviews !=null){ %>
        <% locals.reviews["ratings"] && locals.reviews["ratings"].forEach(review => { %>
             <div class="card my-2 cardHover" style="width: 55rem;">
             <div class="card-body">

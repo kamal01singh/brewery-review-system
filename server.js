@@ -27,7 +27,7 @@ const saltRounds = 10;
 // });
 
 
-const url = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/';
+const url = process.env.MONGO_DB_URL || 'mongodb://127.0.0.1:27017/';
 const client = new MongoClient(url);
 
 const DB_NAME = process.env.DB_NAME || "brewVerse";
@@ -175,39 +175,8 @@ app.get("/dashboard", (req, res) => {
   }
 });
 
-app.post("/newApi", urlencodedParser, (req, res) => {
-  if (req.session.user) {
-    con.query(
-      `insert into apikeys (username, apiName, apikey, isActive) values ('${req.session.user}','${
-        req.body.newapiname
-      }', '${uuidv4()}', 1);`,
-      (err) => {
-        if (err) {
-          res.render("dashboard", {
-            username: req.session.user,
-            apiErr: 1,
-          });
-        } else {
-          res.redirect("/dashboard");
-        }
-      }
-    );
-  } else {
-    res.redirect("/");
-  }
-});
 
-app.post("/deleteApi", urlencodedParser, (req, res) => {
-  if (req.session.user) {
-    con.query(
-      `delete from apikeys where username = '${req.session.user}' and apiName = '${req.body.apiname}';`,
-      (err) => {
-        if (err) throw err;
-      }
-    );
-  }
-  res.redirect("/dashboard");
-});
+
 
 app.get("/logout", (req, res) => {
   if (req.session.user) {
