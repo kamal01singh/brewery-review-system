@@ -10,7 +10,24 @@ const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const saltRounds = 10;
 
-const url = process.env.MONGO_DB_URL || `mongodb+srv://kamalsingh:<${process.env.MONGODB_PASSWORD}>@cluster0.baambk7.mongodb.net/?retryWrites=true&w=majority`;
+// const url = process.env.MONGO_DB_URL || `mongodb+srv://kamalsingh:<${process.env.MONGODB_PASSWORD}>@cluster0.baambk7.mongodb.net/?retryWrites=true&w=majority`;
+// const client = new MongoClient(url);
+
+// const DB_NAME = process.env.DB_NAME || "brewVerse";
+// const DB_COLLECTION_NAME = process.env.DB_COLLECTION_NAME || "userData";
+// const db = client.db(DB_NAME);
+// const coll = db.collection(DB_COLLECTION_NAME);
+
+// var con = mysql.createConnection({
+//   host: "sql12.freemysqlhosting.net",
+//   user: "sql12660423",
+//   password: "LLmXcGLFZB",
+//   port: 3306,
+
+// });
+
+
+const url = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/';
 const client = new MongoClient(url);
 
 const DB_NAME = process.env.DB_NAME || "brewVerse";
@@ -19,17 +36,15 @@ const db = client.db(DB_NAME);
 const coll = db.collection(DB_COLLECTION_NAME);
 
 var con = mysql.createConnection({
-  host: "sql12.freemysqlhosting.net",
-  user: "sql12660423",
-  password: "LLmXcGLFZB",
-  port: 3306,
-
+  host: "localhost",
+  user: "root",
+  password: "8277",
 });
 
 con.connect(function (err) {
   if (err) throw err;
   console.log("Database connected!");
-  con.query("use `sql12660423`;", function (err, result, fields) {
+  con.query("use `brewverse`;", function (err, result, fields) {
     if (err) throw err;
   });
 });
