@@ -178,7 +178,7 @@
         toastBootstrap.show();
       }
 
-      function searchBarText(){
+      function searchBarText(){ //changes ka reference
         let searchBarText = document.getElementById('searchBarText');
         let introTag = document.getElementById('introTag');
         let cardHolder = document.getElementById('cardHolder');
@@ -200,7 +200,7 @@
           }).then((res)=>{
               return res.json();
           }).then((data)=>{
-              cardHolder.innerHTML = '';
+              cardHolder.innerHTML = ''; // reseting cardholder
             data.forEach(brew => {
               cardHolder.innerHTML += `
             <div class="card my-2 cardHover" style="width: 25rem;" onclick="openBrewPage('${brew["id"]}')">

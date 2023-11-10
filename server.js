@@ -73,13 +73,13 @@ app.use(
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get("/", (req, res) => {
-  if (req.session.user) {
+  if (req.session.user) { // check if user is logged in
     req.session.cookie.expires = new Date(Date.now() + 3600000); // 1 hour in milliseconds
     req.session.cookie.maxAge = 3600000; // Update maxAge accordingly
     console.log("LOGGED IN Welcome back,", req.session.user, " , showing Dashboard...");
-    res.redirect("/dashboard");
+    res.redirect("/dashboard"); // if login redirect
   } else {
-    res.render("index");
+    res.render("index"); // if not redirected to login pg
   }
 });
 
@@ -125,14 +125,7 @@ app.post("/signup", urlencodedParser, (req, res) => {
   });
 });
 
-app.post("/toggleApi", urlencodedParser, (req, res) => {
-  if (req.session.user) {
-    con.query(`UPDATE apikeys SET isActive = ${req.body.state} where apiName = '${req.body.apiname}';`, (err) => {
-      if (err) throw err;
-      res.statusCode = 200;
-    });
-  }
-});
+
 
 app.post("/brewSearch", urlencodedParser, (req, res) => {
   let response = {};
@@ -168,8 +161,8 @@ app.post("/userFeedBack", urlencodedParser, (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-  if (req.session.user) {
-    res.render("dashboard", { username: req.session.user, availableApi: "3" });
+  if (req.session.user) { //  check if user is logged in
+    res.render("dashboard", { username: req.session.user });
   } else {
     res.redirect("/");
   }
