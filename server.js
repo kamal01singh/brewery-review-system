@@ -111,7 +111,7 @@ app.post("/login", urlencodedParser, (req, res) => {
 app.post("/signup", urlencodedParser, (req, res) => {
   bcrypt.hash(req.body.password, saltRounds).then((hash) => {
     con.query(
-      `insert into users (username, pass, fullname, email, isActive, isSubscribed, availableApi) values ('${req.body.username}', '${hash}', '${req.body.fullname}', '${req.body.email}', 1, 0, 3);`,
+      `insert into users (username, pass, fullname, email) values ('${req.body.username}', '${hash}', '${req.body.fullname}', '${req.body.email}');`,
       (err) => {
         if (err) {
           console.log("User Exists, ERROR: ", err);
